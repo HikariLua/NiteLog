@@ -4,18 +4,18 @@ extends Control
 func _ready() -> void:
 	%QRHTTPRequest.request_completed.connect(_on_http_request_request_completed)
 	%OpenLoginButton.toggled.connect(_on_open_login_toggled)
+	%WebQRCode.data = CfgFile.settings.get("url-web")
 
 	var url: String = CfgFile.settings["url-api"] + "meetings"
 
-	var json := JSON.new()
-	var datetime : String = Time.get_datetime_string_from_system()
-	print_debug(datetime)
-	var body: String = json.stringify(
-		{"date": datetime }
-	)
+	var datetime : Dictionary = Time.get_date_dict_from_system()
+	var body: String = JSON.stringify(
+		{"date": Time.get_datetime_string_from_system()}
+		)
+	print(str(body))
 
 	var error: Error = %QRHTTPRequest.request(
-		url, [], HTTPClient.METHOD_POST, body
+		url, ["Content-Type: application/json"], HTTPClient.METHOD_POST, body
 	)
 	if error != OK:
 		var msg: String = (
@@ -29,22 +29,23 @@ func _ready() -> void:
 
 
 func _on_http_request_request_completed(
-	result: int,
+	_result: int,
 	response_code: int,
-	headers: PackedStringArray,
+	_headers: PackedStringArray,
 	body: PackedByteArray
 ) -> void:
 	var json := JSON.new()
-	var error: Error = json.parse(body.get_string_from_utf8())
+	json.parse(body.get_string_from_utf8())
 	var response_data: Variant = json.get_data()
+	# TODO atualizar documentação na parte de getMeetingById
 	print_debug(response_data)
 
 	var meeting_id: int
 	if response_code == HTTPClient.RESPONSE_CREATED:
-		meeting_id = response_data.get("id", null) as int
+		meeting_id = response_data.get("meetingCode") as int 
 		if not meeting_id: return
 	elif response_code == HTTPClient.RESPONSE_CONFLICT:
-		meeting_id = response_data.get("meeting", null).get("id", null) as int
+		meeting_id = response_data.get("meeting").get("meetingCode") as int
 		if not meeting_id: return
 	else:
 		var err: String = "Erro na requisição, código: %s" % response_code
@@ -54,12 +55,9 @@ func _on_http_request_request_completed(
 		%ErrorLabel.show()
 		return
 
-	var domain: String = CfgFile.settings["url-api"]
-	var route: String = "/meetings"
-	var params: String = "/%d" % meeting_id
-
-	var link: String = str(meeting_id)
-	%QRCodeRect.data = link
+	var link: int = meeting_id
+	%QRCodeRect.data = str(link)
+	print(%QRCodeRect.data)
 	%QRCodeRect.show()
 
 

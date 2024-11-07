@@ -14,13 +14,13 @@ func _ready() -> void:
 
 
 func _on_http_request_completed(
-	result: int,
+	_result: int,
 	response_code: int,
-	headers: PackedStringArray,
+	_headers: PackedStringArray,
 	body: PackedByteArray
 ) -> void:
 	var json := JSON.new()
-	var error: Error = json.parse(body.get_string_from_utf8())
+	json.parse(body.get_string_from_utf8())
 	var response_data: Variant = json.get_data()
 
 	if response_data == null:
