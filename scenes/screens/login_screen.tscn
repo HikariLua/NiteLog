@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://dfl5mpme2t4lx"]
 
-[ext_resource type="Script" path="res://src/login_screen.gd" id="1_nrvhv"]
+[ext_resource type="Script" uid="uid://glqtb0larnu1" path="res://src/login_screen.gd" id="1_nrvhv"]
 [ext_resource type="Texture2D" uid="uid://rf86x1ivenf3" path="res://addons/tattomoosa.spinner/icons/StatusIndicator.svg" id="2_jjxoh"]
 [ext_resource type="Texture2D" uid="uid://i6esq6rgrc00" path="res://addons/tattomoosa.spinner/icons/StatusWarning.svg" id="3_7q75k"]
-[ext_resource type="Script" path="res://src/transition_button.gd" id="4_mtlnq"]
+[ext_resource type="Script" uid="uid://cr4a88e65jrb3" path="res://src/transition_button.gd" id="4_mtlnq"]
 
 [node name="LoginScreen" type="Control"]
 layout_mode = 3

@@ -8,7 +8,6 @@ func _ready() -> void:
 
 	var url: String = CfgFile.settings["url-api"] + "meetings"
 
-	var datetime : Dictionary = Time.get_date_dict_from_system()
 	var body: String = JSON.stringify(
 		{"date": Time.get_datetime_string_from_system()}
 		)

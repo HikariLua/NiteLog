@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ooiq0s8kor6o"]
 
-[ext_resource type="Script" path="res://src/transition_button.gd" id="1_hr42k"]
-[ext_resource type="Script" path="res://src/config_screen.gd" id="1_ll1g6"]
+[ext_resource type="Script" uid="uid://cr4a88e65jrb3" path="res://src/transition_button.gd" id="1_hr42k"]
+[ext_resource type="Script" uid="uid://dclhi6aq03dtj" path="res://src/config_screen.gd" id="1_ll1g6"]
 
 [node name="ConfigScreen" type="Control"]
 layout_mode = 3
